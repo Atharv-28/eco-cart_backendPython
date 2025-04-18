@@ -19,7 +19,6 @@ def scrape_amazon(url):
         try:
             title = soup.find("span", {"id": "productTitle"}).get_text(strip=True)
             brand = soup.find("a", {"id": "bylineInfo"}).get_text(strip=True)
-            features = soup.find("div", {"id": "feature-bullets"}).get_text(strip=True)
 
             material = None
             material_row = soup.find("tr", {"class": "a-spacing-small po-material"})
@@ -36,11 +35,19 @@ def scrape_amazon(url):
                         if header and value and "Material" in header.get_text(strip=True):
                             material = value.get_text(strip=True)
                             break
+            
+            img_tag = soup.find("img", {"id": "landingImage"})
+            if img_tag and "data-a-dynamic-image" in img_tag.attrs:
+                dynamic_image_data = img_tag["data-a-dynamic-image"]
+                # Extract the first image URL from the JSON-like string
+                img_url = list(eval(dynamic_image_data).keys())[0]
+            else:
+                img_url = "Image not found."
 
             return {
                 "title": title,
+                "img_url": img_url,
                 "brand": brand,
-                "features": features,
                 "material": material if material else "Material information not found."
             }
         except AttributeError:

@@ -18,6 +18,11 @@ def scrape_flipkart(url):
         try:
             # Extract product details
             title = soup.find("span", {"class": "VU-ZEz"}).get_text(strip=True)  # Product title
+            
+
+             # Extract image URL
+            img_tag = soup.find("img", {"class": "DByuf4 IZexXJ jLEJ7H"})
+            img_url = img_tag["src"] if img_tag else "Image not found."
 
             # Extract material information
             material = None
@@ -42,6 +47,7 @@ def scrape_flipkart(url):
 
             return {
                 "title": title,
+                "image_url": img_url,
                 "material": material if material else "Material information not found."
             }
         except AttributeError:
