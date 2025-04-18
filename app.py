@@ -42,13 +42,13 @@ def scrape_amazon(url):
             if img_tag and "data-a-dynamic-image" in img_tag.attrs:
                 dynamic_image_data = img_tag["data-a-dynamic-image"]
                 # Extract the first image URL from the JSON-like string
-                img_url = list(eval(dynamic_image_data).keys())[0]
+                image_url = list(eval(dynamic_image_data).keys())[0]
             else:
-                img_url = "Image not found."
+                image_url = "Image not found."
 
             return {
                 "title": title,
-                "img_url": img_url,
+                "image_url": image_url,
                 "brand": brand,
                 "material": material if material else "Material information not found."
             }
