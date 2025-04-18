@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request
 import requests
 from bs4 import BeautifulSoup
+from flask_cors import CORS
 
 # Import the scrape logic from flipkart.py
 from flipkart import scrape_flipkart  # Ensure the function is defined in flipkart.py
 
 app = Flask(__name__)
+CORS(app)
 
 def scrape_amazon(url):
     headers = {
