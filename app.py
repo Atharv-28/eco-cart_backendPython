@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import requests
 from bs4 import BeautifulSoup
 from flask_cors import CORS
+import os  # Add this import at the top of the file
 
 # Import the scrape logic from flipkart.py
 from flipkart import scrape_flipkart  # Ensure the function is defined in flipkart.py
@@ -74,4 +75,5 @@ def scrape():
     return jsonify(product_details)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use the PORT environment variable or default to 5000
+    app.run(host='0.0.0.0', port=port, debug=True)
