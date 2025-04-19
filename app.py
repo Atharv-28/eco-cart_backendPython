@@ -62,7 +62,9 @@ def scrape():
     data = request.get_json()
     url = data.get("url")
 
-    if "amazon" in url or "amzn" in url:
+    if "amazon" in url:
+        product_details = scrape_amazon(url)
+    elif "amzn" in url:
         product_details = scrape_amazon(url)
     elif "flipkart" in url:
         product_details = scrape_flipkart(url)
