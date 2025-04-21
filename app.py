@@ -3,16 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 from flask_cors import CORS
 import os
-import time
 
 app = Flask(__name__)
 CORS(app, resources={r"/scrape": {"origins": "*"}})
 
 def scrape_flipkart(url):
-    start_time = time.time()
-    
-    # Wait a bit to avoid being blocked
-    time.sleep(2)  # Optional: helps if Flipkart rate limits or throttles
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
