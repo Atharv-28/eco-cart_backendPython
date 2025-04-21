@@ -8,7 +8,6 @@ app = Flask(__name__)
 CORS(app, resources={r"/scrape": {"origins": "*"}})
 
 def scrape_flipkart(url):
-
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
         "Accept-Language": "en-US,en;q=0.9",
@@ -16,13 +15,13 @@ def scrape_flipkart(url):
 
     try:
         response = requests.get(url, headers=headers, timeout=50)
-        print(f"[INFO] Request completed in {time.time() - start_time:.2f}s with status code {response.status_code}")
+        print(f"[INFO] Response status code: {response.status_code}")
 
         if response.status_code != 200:
             return {"error": f"Failed to fetch the page. Status code: {response.status_code}"}
 
         soup = BeautifulSoup(response.content, "html.parser")
-        print(f"[INFO] HTML parsed in {time.time() - start_time:.2f}s")
+        print("[INFO] HTML parsed successfully.")
 
         try:
             title = soup.find("span", {"class": "VU-ZEz"}).get_text(strip=True)
