@@ -5,7 +5,7 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/scrape": {"origins": "*"}})
+CORS(app, resources={r"/scrape": {"origins": "https://eco-cart-frontend.vercel.app"}})
 
 def scrape_flipkart(url):
     headers = {
